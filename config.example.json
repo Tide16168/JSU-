@@ -1,37 +1,37 @@
 {
   "reserve": [
     {
-      "username": "your_username",
-      "password": "your_password",
+      "username": "15683986269",
+      "password": "oysl0713./+-",
       "time": [
-        "10:00",
+        "09:30",
         "22:00"
       ],
       "roomid": "5559",
       "seatid": [
-        "202"
+        "043"
       ],
       "daysofweek": [
         "Monday",
         "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+        "星期日"
       ]
     }
   ],
-  "mail": {
+  "邮件": {
     "host": "smtp.qq.com",
     "port": 465,
     "secure": true,
     "auth": {
-      "user": "your_email@qq.com",
-      "pass": "your_email_authorization_code"
+      "user": "1911014900@qq.com",
+      "pass": "wouqjsahvunbbhib"
     }
   },
-  "receivers": [
-    "your_email@example.com"
+  "接收者": [
+    "1911014900@qq.com"
   ]
 }
