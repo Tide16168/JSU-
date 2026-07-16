@@ -1,39 +1,33 @@
-# 此工作流将使用单一版本的 Python 安装依赖项、运行测试并进行代码检查
-# 有关更多信息，请参阅：https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+name: è¶æåº§ä½é¢çº¦
 
-name: Python应用程序
-
-触发条件:
-  push:
-    分支: [ "main" ]
- 拉取请求:
-    分支: [ "main" ]
-
-权限:
-内容: 读取
+on:
+  schedule:
+    - cron: "55 11 * * *"
+  workflow_dispatch:
 
 jobs:
-构建:
+  reserve:
+    runs-on: ubuntu-latest
 
-运行环境: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-    步骤:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      使用: actions/setup-python@v3
-      with:
-        python版本: "3.10"
-    - 名称: 安装依赖
-      运行: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        如果存在 requirements.txt 文件，则执行 pip install -r requirements.txt；否则不执行
-    - 名称: 使用flake8进行代码检查
-      运行: |
-        # 如果存在 Python 语法错误或未定义的名称，则停止构建
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero 将所有错误视为警告。GitHub 编辑器的宽度为 127 个字符
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: 使用pytest进行测试
-      运行: |
-        pytest
+      - name: è®¾ç½® Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: å®è£ä¾èµ
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: åå¥éç½®æä»¶
+        env:
+          CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+        run: |
+          echo "$CONFIG_JSON" > config.json
+          echo "config.json å·²åå»º"
+
+      - name: æ§è¡åº§ä½é¢çº¦
+        run: python main.py -m action
