@@ -1,8 +1,8 @@
-name: è¶æåº§ä½é¢çº¦
+name: 超星座位预约
 
 on:
   schedule:
-    - cron: "55 11 * * *"
+    - cron: '55 11 * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,22 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: è®¾ç½® Python 3.10
+      - name: 设置 Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - name: å®è£ä¾èµ
+      - name: 安装依赖
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: åå¥éç½®æä»¶
+      - name: 写入配置文件
         env:
           CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
         run: |
           echo "$CONFIG_JSON" > config.json
-          echo "config.json å·²åå»º"
+          echo "config.json 已创建"
 
-      - name: æ§è¡åº§ä½é¢çº¦
+      - name: 执行座位预约
         run: python main.py -m action
